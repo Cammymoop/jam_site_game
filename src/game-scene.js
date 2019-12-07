@@ -46,13 +46,16 @@ export default class GameScene extends Phaser.Scene {
         let ground = 110;
         let maxHeight = 22;
 
-        this.player.y = ground - Math.abs(Math.sin(time/200) * (ground - maxHeight));
+        let stickFactor = 14;
+        let slowFactor = 260;
+
+        this.player.y = Math.min(ground, ground + stickFactor - Math.abs(Math.sin(time/slowFactor) * (ground + stickFactor - maxHeight)));
 
         this.player.frame = 0;
         if (ground - this.player.y < 20) {
-            //this.player.frame = 1;
+            this.player.setFrame(1);
         } else {
-            //this.player.frame = 0;
+            this.player.setFrame(0);
         }
 
         let up = false;
